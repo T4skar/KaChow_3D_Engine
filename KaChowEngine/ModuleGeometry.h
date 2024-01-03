@@ -11,6 +11,7 @@
 
 #include "GameObject.h"
 
+#include "Bullet/include/btBulletDynamicsCommon.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
