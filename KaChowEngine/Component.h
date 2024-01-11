@@ -20,10 +20,15 @@ public:
 	virtual void OnEditor();
 	virtual void Update();
 
-	void Enable();
-	void Disable();
+	virtual void Enable();
+	virtual void Disable();
+
+	virtual bool IsEnable();
+
+	virtual void PrintOnInspector();
 
 	bool active;
+
 	ComponentType type;
 	GameObject* mParent;
 

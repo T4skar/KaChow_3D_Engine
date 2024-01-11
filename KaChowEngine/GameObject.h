@@ -31,6 +31,13 @@ public:
 	bool AddThisChild(GameObject* gameObject);
 	bool IsChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
+
+	void Enable()  { active = true; }
+
+	void Disable() { active = false; }
+
+	bool IsEnable() { return active; }
+
 	void PrintOnInspector();
 	void SetDeletion(bool deleteGO) { deleteGameObject = deleteGO; };
 
@@ -39,6 +46,7 @@ public:
 	C_Material* GetMaterialComponent();
 	C_Camera* GetCameraComponent();
 
+	bool active = true;
 
 	std::string name;
 

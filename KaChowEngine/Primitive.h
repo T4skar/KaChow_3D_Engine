@@ -52,6 +52,16 @@ public:
 	float3 size;
 };
 
+class CSphere : public Primitive
+{
+public:
+	CSphere();
+	CSphere(float radius);
+	void InnerRender() const;
+public:
+	float radius;
+};
+
 // ============================================
 class CCylinder : public Primitive
 {

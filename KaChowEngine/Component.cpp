@@ -33,3 +33,11 @@ void Component::Disable()
 {
 	active = false;
 }
+bool Component::IsEnable()
+{ 
+	return active; 
+}
+void Component::PrintOnInspector()
+{
+
+}

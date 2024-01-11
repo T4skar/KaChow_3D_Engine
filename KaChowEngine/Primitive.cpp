@@ -212,6 +212,23 @@ void Cube::InnerRender() const
 	glEnd();
 }
 
+// SPHERE ============================================
+CSphere::CSphere() : Primitive(), radius(1.0f)
+{
+	type = PrimitiveTypes::Primitive_Sphere;
+}
+
+CSphere::CSphere(float radius) : Primitive(), radius(radius)
+{
+	type = PrimitiveTypes::Primitive_Sphere;
+}
+
+void CSphere::InnerRender() const
+{
+	
+
+}
+
 // CYLINDER ============================================
 CCylinder::CCylinder() : Primitive(), radius(1.0f), height(1.0f)
 {

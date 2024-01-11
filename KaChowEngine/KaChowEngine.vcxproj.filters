@@ -220,6 +220,9 @@
     <ClCompile Include="PhysVehicle3D.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="CPhysics.cpp">
+      <Filter>Sources\Gameobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h">
@@ -533,6 +536,9 @@
     </ClInclude>
     <ClInclude Include="PhysVehicle3D.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CPhysics.h">
+      <Filter>Sources\Gameobject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
