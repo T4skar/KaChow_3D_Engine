@@ -4,9 +4,10 @@
 #include "ModuleGeometry.h"
 
 #include <gl/GL.h>
+#include <gl/GLU.h>
 
 // ------------------------------------------------------------
-Primitive::Primitive() : transform(float4x4::identity), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
+Primitive::Primitive() : transform(IdentityMatrix), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
 {}
 
 // ------------------------------------------------------------
@@ -19,7 +20,7 @@ PrimitiveTypes Primitive::GetType() const
 void Primitive::Render() const
 {
 	glPushMatrix();
-	glMultMatrixf(transform.ptr());
+	glMultMatrixf(transform.M);
 
 	if(axis == true)
 	{
@@ -55,6 +56,11 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
+	if (wire)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	InnerRender();
 
 	glPopMatrix();
@@ -77,19 +83,19 @@ void Primitive::InnerRender() const
 // ------------------------------------------------------------
 void Primitive::SetPos(float x, float y, float z)
 {
-	transform = transform * float4x4::Translate(x, y, z);
+	transform.translate(x, y, z);
 }
 
 // ------------------------------------------------------------
-void Primitive::SetRotation(float angle, const float3& u)
+void Primitive::SetRotation(float angle, const vec3& u)
 {
-	transform = transform * float4x4::RotateAxisAngle(u, angle);
+	transform.rotate(angle, u);
 }
 
 // ------------------------------------------------------------
 void Primitive::Scale(float x, float y, float z)
 {
-	transform = transform * float4x4::Scale(x, y, z);
+	transform.scale(x, y, z);
 }
 
 // CUBE ============================================
@@ -103,67 +109,53 @@ Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitive(), size(sizeX, siz
 	type = PrimitiveTypes::Primitive_Cube;
 }
 
-Mesh* Primitive::CreateCube()
-{
-	float s = 0.5f;
-
-	Mesh* mesh = new Mesh();
-
-	//VERTICES
-	mesh->num_vertex = 8;
-	mesh->vertex = new float[mesh->num_vertex * VERTEX_ARGUMENTS]; //3 floats per vertex
-
-		//generate all vertices
-	for (int i = 0; i < (mesh->num_vertex * VERTEX_ARGUMENTS); i++) {
-		int p = 1;	//positivity(sign)
-		int count = i / VERTEX_ARGUMENTS;
-		switch (i % VERTEX_ARGUMENTS) {
-			//x
-		case 0:
-			if (count == 0 || count == 3 || count == 4 || count == 7) p = -1;
-			break;
-			//y
-		case 1:
-			if (count == 2 || count == 3 || count == 6 || count == 7) p = -1;
-			break;
-			//z
-		case 2:
-			if (count <= 3) p = -1;
-			break;
-		}
-
-		if ((i % VERTEX_ARGUMENTS) >= 3) {
-			mesh->vertex[i] = 0;
-		}
-		else {
-			mesh->vertex[i] = s * p;
-		}
-	}
-
-	//INDICES
-	mesh->num_index = 36;	//6*2 triangle faces, 3 index per triangle face
-	mesh->index = new uint[mesh->num_index];
-
-	uint index[36] =
-	{ 1,3,0,
-	1,2,3,
-	5,2,1,
-	5,6,2,
-	4,6,5,
-	4,7,6,
-	0,7,4,
-	0,3,7,
-	5,0,4,
-	5,1,0,
-	2,7,3,
-	2,6,7 };
-
-	for (int i = 0; i < mesh->num_index; i++) {
-		mesh->index[i] = index[i];
-	}
-
-	return mesh;
-}
+//Mesh* Primitive::CreateCube()
+//{
+//	Cube cube;
+//	float sx = cube.size.x * 0.5f;
+//	float sy = cube.size.y * 0.5f;
+//	float sz = cube.size.z * 0.5f;
+//
+//	glBegin(GL_QUADS);
+//
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glVertex3f(-sx, -sy, sz);
+//	glVertex3f(sx, -sy, sz);
+//	glVertex3f(sx, sy, sz);
+//	glVertex3f(-sx, sy, sz);
+//
+//	glNormal3f(0.0f, 0.0f, -1.0f);
+//	glVertex3f(sx, -sy, -sz);
+//	glVertex3f(-sx, -sy, -sz);
+//	glVertex3f(-sx, sy, -sz);
+//	glVertex3f(sx, sy, -sz);
+//
+//	glNormal3f(1.0f, 0.0f, 0.0f);
+//	glVertex3f(sx, -sy, sz);
+//	glVertex3f(sx, -sy, -sz);
+//	glVertex3f(sx, sy, -sz);
+//	glVertex3f(sx, sy, sz);
+//
+//	glNormal3f(-1.0f, 0.0f, 0.0f);
+//	glVertex3f(-sx, -sy, -sz);
+//	glVertex3f(-sx, -sy, sz);
+//	glVertex3f(-sx, sy, sz);
+//	glVertex3f(-sx, sy, -sz);
+//
+//	glNormal3f(0.0f, 1.0f, 0.0f);
+//	glVertex3f(-sx, sy, sz);
+//	glVertex3f(sx, sy, sz);
+//	glVertex3f(sx, sy, -sz);
+//	glVertex3f(-sx, sy, -sz);
+//
+//	glNormal3f(0.0f, -1.0f, 0.0f);
+//	glVertex3f(-sx, -sy, -sz);
+//	glVertex3f(sx, -sy, -sz);
+//	glVertex3f(sx, -sy, sz);
+//	glVertex3f(-sx, -sy, sz);
+//
+//	glEnd();
+//}
 
 void Cube::InnerRender() const
 {	

@@ -26,11 +26,16 @@ public:
 	void SaveSceneRequest() { saveSceneRequest = true; };
 	void LoadSceneRequest() { loadSceneRequest = true; };
 
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+
 private:
 	void UpdateGameObjects();
 	bool SaveScene();
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
 	bool LoadScene();
+
+	
+
 
 	JsonParser jsonFile;
 	JSON_Value* rootFile;

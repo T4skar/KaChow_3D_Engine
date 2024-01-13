@@ -58,6 +58,10 @@ private:
 public:
 	int cvCounter;
 
+
+	bool playPressed;
+	bool pausePressed;
+
 	// Config window 
 	bool fullscreen;
 	float screenWidth;

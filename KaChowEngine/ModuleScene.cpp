@@ -303,6 +303,11 @@ bool ModuleScene::LoadScene()
 	return false;
 }
 
+void ModuleScene::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+
+}
+
 void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj)
 {
 

@@ -1,6 +1,7 @@
 
 #pragma once
 #include "Color.h"
+#include "glmath.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/TransformOps.h"
@@ -26,15 +27,14 @@ public:
 	virtual void	Render() const;
 	virtual void	InnerRender() const;
 	void			SetPos(float x, float y, float z);
-	void			SetRotation(float angle, const float3& u);
+	void			SetRotation(float angle, const vec3& u);
 	void			Scale(float x, float y, float z);
 	PrimitiveTypes	GetType() const;
 	static Mesh* CreateCube();
 
-public:
 	
 	Color color;
-	float4x4 transform;
+	mat4x4 transform;
 	bool axis,wire;
 
 protected:

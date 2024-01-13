@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "ModuleScene.h"
 
 #include "Bullet/include/btBulletDynamicsCommon.h"
 #include "CPhysics.h"

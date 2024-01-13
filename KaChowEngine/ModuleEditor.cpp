@@ -572,18 +572,23 @@ update_status ModuleEditor::DrawEditor()
             //PLAY
             if (ImGui::Button(">", ImVec2(25, 25)))
             {
-                if (App->IsRunning()) {
-                    App->SetState(GameState::STOP);
-                    ImGui::SetWindowFocus("Scene");
-                    App->LoadConfig();
-                    App->scene->LoadSceneRequest();
-                }
-                else {
-                    App->SetState(GameState::PLAY);
-                    ImGui::SetWindowFocus("Game");
-                    App->SaveConfig();
-                    App->scene->SaveSceneRequest();
-                }
+                //if (playPressed == true) {
+                    if (App->IsRunning()) {
+                        App->SetState(GameState::STOP);
+                        ImGui::SetWindowFocus("Scene");
+                        //pausePressed = false;
+                        //playPressed = false;
+                        App->LoadConfig();
+                        App->scene->LoadSceneRequest();
+                    }
+                    else {
+                        App->SetState(GameState::PLAY);
+                        //playPressed = true;
+                        ImGui::SetWindowFocus("Game");
+                        App->SaveConfig();
+                        App->scene->SaveSceneRequest();
+                    }
+                //}
             }
 
             ImGui::SameLine();
@@ -591,9 +596,18 @@ update_status ModuleEditor::DrawEditor()
             //PAUSE
             if (ImGui::Button("||", ImVec2(25, 25)))
             {
-                if (App->IsRunning()) {
-                    App->SetState(GameState::PAUSE);
-                }
+                //if (pausePressed == true) {
+
+                    
+                    if (App->IsRunning()) {
+                        App->SetState(GameState::PAUSE);
+                       // pausePressed = false;
+                    }
+                    else
+                    {
+                       // pausePressed = true;
+                    }
+                //}
             }
 
             ImGui::SameLine();
@@ -601,12 +615,20 @@ update_status ModuleEditor::DrawEditor()
             //STOP
             if (ImGui::Button("[]", ImVec2(25, 25)))
             {
-                if (App->IsRunning()) {
-                    App->SetState(GameState::STOP);
-                    ImGui::SetWindowFocus("Scene");
-                    App->LoadConfig();
-                    App->scene->LoadSceneRequest();
-                }
+                //if (pausePressed == true) {
+
+                    if (App->IsRunning()) {
+                        App->SetState(GameState::STOP);
+                        ImGui::SetWindowFocus("Scene");
+                        App->LoadConfig();
+                        App->scene->LoadSceneRequest();
+                        //pausePressed = false;
+                    }
+                    else
+                    {
+                        //pausePressed = true;
+                    }
+                //}
             }
         }
         ImGui::EndMainMenuBar();
