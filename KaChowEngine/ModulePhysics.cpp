@@ -479,6 +479,22 @@ PhysBody3D* ModulePhysics3D::UpdateCylinderColliderSize(PhysBody3D*& collider, f
 	return nullptr;
 }
 
+void ModulePhysics3D::SaveWorldTransforms()
+{
+	
+	if (App->scene != nullptr) {
+		
+		JsonParser& rootGO = App->scene->rootGO;
+
+		for (int i = 0; i < App->scene->ListGO.size(); i++) {
+			if (App->scene->ListGO[i]->mTransform != nullptr) {
+				App->scene->ListGO[i]->mTransform->SaveMatrixBeforePhys();
+				App->scene->ListGO[i]->mTransform->SaveOffsetMatrix();
+			}
+		}
+	}
+}
+
 
 ModuleScene* ModulePhysics3D::GetScene()
 {

@@ -28,7 +28,6 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
-private:
 	void UpdateGameObjects();
 	bool SaveScene();
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
@@ -48,6 +47,8 @@ private:
 	void LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj);
 
 	JsonParser rootGO;
+
+	std::vector<GameObject*> ListGO;
 
 	bool saveSceneRequest = false;
 	bool loadSceneRequest = true;
