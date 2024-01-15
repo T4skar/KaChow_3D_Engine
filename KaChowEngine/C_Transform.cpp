@@ -1,5 +1,6 @@
 #include "C_Transform.h"
 
+
 C_Transform::C_Transform(std::string uuid) : Component(nullptr, uuid)
 {
 	type = ComponentType::TRANSFORM;
@@ -68,6 +69,28 @@ void C_Transform::resetMatrix()
 	mPosition = { 0,0,0 };
 	mRotation = { 0,0,0 };
 	mScale = { 1,1,1 };
+}
+
+void C_Transform::SaveMatrixBeforePhys() {
+
+	for (int j = 0; j < 16; j++) {
+		matrixBeforePhys[j] = mParent->mTransform->matrix[j];
+	}
+
+}
+void C_Transform::SaveOffsetMatrix() {
+
+
+	for (int i = 0; i < collidersAffecting.size(); i++) {
+		float glMat[16];
+		collidersAffecting[i]->colliderAffected->body->getWorldTransform().getOpenGLMatrix(glMat);
+
+		for (int j = 0; j < 16; j++) {
+			collidersAffecting[i]->offsetMatrix[j] = glMat[j] - mParent->mTransform->matrix[j];
+		}
+	}
+
+
 }
 
 float3 C_Transform::getPosition(bool globalPosition)

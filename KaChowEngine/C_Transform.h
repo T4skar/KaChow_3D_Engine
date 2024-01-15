@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "ImGui/imgui.h"
 #include <string>
+#include "PhysBody3D.h"
 
 class GameObject;
 class Component;
@@ -12,6 +13,15 @@ class Component;
 class C_Transform : public Component
 {
 public:
+
+	class CollidersRelation {
+	public:
+		CollidersRelation() {};
+		~CollidersRelation() {};
+		PhysBody3D* colliderAffected;
+		mat4x4 offsetMatrix;
+	};
+
 	C_Transform(std::string uuid);
 	C_Transform(GameObject* parent, std::string uuid);
 	~C_Transform();
@@ -37,6 +47,9 @@ public:
 
 	void SetLocalMatrix(float4x4 localMatrix);
 
+	void SaveMatrixBeforePhys();
+	void SaveOffsetMatrix();
+
 	//// Pilota
 	//void SetTransfoMatrix(float3 position, Quat rotation, float3 scale);
 
@@ -49,4 +62,8 @@ public:
 	// Posarli matriux local del parent
 	float4x4 mGlobalMatrix;
 	float4x4 mLocalMatrix;
+
+	mat4x4 matrix;
+	mat4x4 matrixBeforePhys;
+	std::vector<CollidersRelation*> collidersAffecting;
 };

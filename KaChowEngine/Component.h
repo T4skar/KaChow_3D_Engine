@@ -8,7 +8,7 @@ enum class ComponentType
 	MESH,
 	MATERIAL,
 	CAMERA,
-	PHISICS
+	PHYSICS
 };
 
 class GameObject;

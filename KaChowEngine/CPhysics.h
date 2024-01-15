@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "glmath.h"
 
 
 class Component;
