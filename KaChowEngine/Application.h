@@ -11,6 +11,7 @@
 #include "ModuleGeometry.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "ModulePhysics3D.h"
 #include "JsonParser.h"
 
 #include<vector>
@@ -30,6 +31,7 @@ class ModuleCamera3D;
 class ModuleEditor;
 class ModuleGeometry;
 class ModuleTextures;
+class ModulePhysics3D;
 class ModuleScene;
 
 class Application
@@ -42,6 +44,7 @@ public:
 	ModuleTextures* texture2D;
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
+	ModulePhysics3D* physics;
 	ModuleScene* scene;
 
 private:

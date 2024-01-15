@@ -10,6 +10,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	scene = new ModuleScene(this);
+	physics = new ModulePhysics3D(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update() in this order
@@ -22,11 +23,13 @@ Application::Application()
 	AddModule(texture2D);
 
 	AddModule(geoLoader);
-
+	AddModule(physics);
 	AddModule(scene);
+	
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
+
 
 	loadRequested = true;
 	saveRequested = false;

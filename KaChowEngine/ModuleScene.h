@@ -3,6 +3,12 @@
 #include "Globals.h"
 #include "GameObject.h"
 #include <vector>
+#include "ModulePhysics3D.h"
+#include "PhysVehicle3D.h"
+
+#define MAX_ACCELERATION 1000.0f
+#define TURN_DEGREES 15.0f * DEGTORAD
+#define BRAKE_POWER 1000.0f
 
 class GameObject;
 class ModuleScene : public Module
@@ -33,7 +39,8 @@ public:
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
 	bool LoadScene();
 
-	
+	void CreateVehicle();
+	void ControlVehicle();
 
 
 	JsonParser jsonFile;
@@ -62,6 +69,11 @@ public:
 	GameObject* bakerHouse;
 
 	GameObject* street;
+
+	PhysVehicle3D* vehicle;
+	float turn;
+	float acceleration;
+	float brake;
 
 	GameObject* currentGameCamera;
 

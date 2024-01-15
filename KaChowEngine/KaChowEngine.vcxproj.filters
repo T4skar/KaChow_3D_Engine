@@ -211,7 +211,7 @@
     <ClCompile Include="JsonParser.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="ModulePhysics.cpp">
+    <ClCompile Include="ModulePhysics3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="PhysBody3D.cpp">
@@ -528,7 +528,7 @@
     <ClInclude Include="JsonParser.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="ModulePhysics.h">
+    <ClInclude Include="ModulePhysics3D.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="PhysBody3D.h">
