@@ -552,10 +552,10 @@ void ModulePhysics3D::SaveWorldTransforms()
 }
 
 
-//ModuleScene* ModulePhysics3D::GetScene()
-//{
-//	return App->scene;
-//}
+ModuleScene* ModulePhysics3D::GetScene()
+{
+	return App->scene;
+}
 
 // ---------------------------------------------------------
 btTypedConstraint* ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB)

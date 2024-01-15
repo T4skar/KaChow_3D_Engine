@@ -6,6 +6,7 @@
 #include "ImGui/imgui.h"
 #include <string>
 #include "PhysBody3D.h"
+#include "glmath.h"
 
 class GameObject;
 class Component;
@@ -46,6 +47,17 @@ public:
 	void SetTransformMatrixW(float4x4 matrix);
 
 	void SetLocalMatrix(float4x4 localMatrix);
+	void setIdentity(mat4x4 mat);
+
+	void UpdateScl();
+
+	void SetGPos(float3 _pos);
+	void SetGRot(float3 _rot);
+	void SetGScl(float3 _scl);
+
+	float3 GetGPos() { return gpos; }
+	float3 GetGRot() { return grot; }
+	float3 GetGScale() { return gscl; }
 
 	void SaveMatrixBeforePhys();
 	void SaveOffsetMatrix();
@@ -66,4 +78,13 @@ public:
 	mat4x4 matrix;
 	mat4x4 matrixBeforePhys;
 	std::vector<CollidersRelation*> collidersAffecting;
+
+private:
+	float3 ppos = { 0,0,0 };
+	float3 prot = { 0,0,0 };
+	float3 pscl = { 1,1,1 };
+
+	float3 gpos = { 0,0,0 };
+	float3 grot = { 0,0,0 };
+	float3 gscl = { 1,1,1 };
 };

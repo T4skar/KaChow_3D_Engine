@@ -38,5 +38,6 @@
         "colorMaterial": true,
         "texture2D": false
     },
-    "Editor": {}
+    "Editor": {},
+    "notNamed": {}
 }

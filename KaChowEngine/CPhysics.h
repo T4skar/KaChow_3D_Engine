@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "glmath.h"
 
+#include <vector>
 
 class Component;
 class btTypedConstraint;

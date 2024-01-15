@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
-#include "ModuleScene.h"
+
 
 #include "Bullet/include/btBulletDynamicsCommon.h"
 #include "CPhysics.h"
@@ -14,6 +14,8 @@
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
 
 class DebugDrawer;
+class ModuleScene;
+
 struct PhysBody3D;
 struct PhysVehicle3D;
 struct VehicleInfo;
@@ -56,7 +58,7 @@ public:
 
 	void SaveWorldTransforms();
 
-	//ModuleScene* GetScene();
+	ModuleScene* GetScene();
 
 	//PhysBody3D* UpdateSphereColliderSize(PhysBody3D* collider, float mass = 1.0f);
 	//PhysBody3D* UpdateCylinderColliderSize(PhysBody3D* collider, float mass = 1.0f);

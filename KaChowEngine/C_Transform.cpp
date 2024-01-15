@@ -1,6 +1,5 @@
 #include "C_Transform.h"
 
-
 C_Transform::C_Transform(std::string uuid) : Component(nullptr, uuid)
 {
 	type = ComponentType::TRANSFORM;
@@ -31,7 +30,14 @@ void C_Transform::OnEditor()
 		ImGui::DragFloat3("Rotation", mRotation.ptr(), 0.25f);
 
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::DragFloat3("Scale", mScale.ptr(), 0.25f);
+		if(ImGui::DragFloat3("Scale", mScale.ptr(), 0.25f)) {
+			if (mParent->GOphys != nullptr) {
+				if (mParent->GOphys->collider != nullptr) {
+					SaveOffsetMatrix();
+				}
+			}
+			setScale(mScale);
+		}
 	}
 
 
@@ -89,8 +95,15 @@ void C_Transform::SaveOffsetMatrix() {
 			collidersAffecting[i]->offsetMatrix[j] = glMat[j] - mParent->mTransform->matrix[j];
 		}
 	}
+}
 
-
+void C_Transform::setIdentity(mat4x4 mat)
+{
+	for (int i = 0; i < 15; ++i)
+	{
+		if (i == 0 || i == 5 || i == 10 || i == 15) mat[i] = 1;
+		else mat[i] = 0;
+	}
 }
 
 float3 C_Transform::getPosition(bool globalPosition)

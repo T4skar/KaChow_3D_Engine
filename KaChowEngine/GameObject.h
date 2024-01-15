@@ -16,6 +16,8 @@ class C_Transform;
 class C_Mesh;
 class C_Material;
 class C_Camera;
+class CPhysics;
+
 class GameObject
 {
 public:
@@ -63,5 +65,7 @@ public:
 	std::string uuid;
 
 	ShapeType type;
+
+	CPhysics* GOphys = nullptr;
 
 };
