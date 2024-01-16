@@ -581,6 +581,8 @@ update_status ModuleEditor::DrawEditor()
                         App->LoadConfig();
                         App->scene->LoadSceneRequest();
                         App->physics->isWorldOn = false;
+                        App->scene->DeleteGO();
+
                     }
                     else {
                         App->SetState(GameState::PLAY);

@@ -46,6 +46,8 @@ public:
 
 	void AddGOList(GameObject* objlist);
 
+	void DeleteGO();
+
 	JsonParser jsonFile;
 	JSON_Value* rootFile;
 

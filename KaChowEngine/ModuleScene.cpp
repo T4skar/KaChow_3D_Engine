@@ -165,7 +165,7 @@ update_status ModuleScene::Update(float dt)
 	if (App->gameState == GameState::PLAY)
 	{
 		ControlVehicle();
-
+		
 	}
 	else
 	{
@@ -187,8 +187,23 @@ update_status ModuleScene::Update(float dt)
 bool ModuleScene::CleanUp()
 {
 	delete rootGameObject;
+	delete currentGameSphere;
+	//DeleteGO();
 
 	return true;
+}
+
+void ModuleScene::DeleteGO()
+{
+	for (uint i = 2; i < App->scene->ListGO.size(); i++) {
+
+		App->scene->ListGO[i]->Remove();
+
+	}
+
+	App->scene->ListGO.erase(App->scene->ListGO.begin() + 2, App->scene->ListGO.end());
+
+
 }
 
 void ModuleScene::CreateSphere(float force)

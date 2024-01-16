@@ -43,6 +43,7 @@ public:
 	void PrintOnInspector();
 	void SetDeletion(bool deleteGO) { deleteGameObject = deleteGO; };
 
+	void Remove();
 
 	C_Mesh* GetMeshComponent();
 	C_Material* GetMaterialComponent();
@@ -60,6 +61,7 @@ public:
 
 
 	bool deleteGameObject;
+	bool showingINHierarchy = true;
 	int componentNum;
 
 	std::string GetUUIDName();

@@ -204,10 +204,10 @@ void GameObject::PrintOnInspector()
 			name = aux;
 
 		if (ImGui::Button("Delete")) {
-
-			deleteGameObject = true;
-			delete App->scene->selectedGameObj;
-			App->scene->selectedGameObj = nullptr;
+			App->scene->DeleteGO();
+			//deleteGameObject = true;
+			//delete App->scene->selectedGameObj;
+			//App->scene->selectedGameObj = nullptr;
 			
 		}
 
@@ -304,4 +304,86 @@ bool GameObject::AddThisChild(GameObject* gameObject)
 	gameObject->mParent = this;
 	mChildren.push_back(gameObject);
 	return true;
+}
+
+void GameObject::Remove()
+{
+	if (mParent != nullptr) {
+
+		if (!mComponents.empty())
+		{
+			for (uint i = 0; i < mComponents.size(); ++i)
+			{
+				mComponents[i] = nullptr;
+				delete mComponents[i];
+			}
+			mComponents.clear();
+
+		}
+		//External->CleanVec(components);
+		if (!mChildren.empty()) {
+
+			for (uint i = 0; i < mChildren.size(); ++i)
+			{
+				mChildren[i] = nullptr;
+				delete mChildren[i];
+			}
+			mChildren.clear();
+		}
+
+		mParent = nullptr;
+		delete mParent;
+
+		if (GOphys != nullptr) {
+			GOphys->~CPhysics();
+			GOphys = nullptr;
+		}
+		delete GOphys;
+
+		if (GetMaterialComponent() != nullptr) {
+			GetMaterialComponent()->~C_Material();
+			for (size_t i = 0; i < mComponents.size(); i++)
+			{
+				if (mComponents[i]->type == ComponentType::MATERIAL)
+				{
+					delete (C_Material*)mComponents[i];
+				}
+			}
+		}
+		delete GetMaterialComponent();
+
+		if (mTransform != nullptr) {
+			mTransform->~C_Transform();
+			mTransform = nullptr;
+		}
+		delete mTransform;
+
+		if (GetMeshComponent() != nullptr) {
+			GetMeshComponent()->~C_Mesh();
+			GetMaterialComponent()->~C_Material();
+			for (size_t i = 0; i < mComponents.size(); i++)
+			{
+				if (mComponents[i]->type == ComponentType::MESH)
+				{
+					delete (C_Mesh*)mComponents[i];
+				}
+			}
+		}
+		delete GetMeshComponent();
+
+		if (GetCameraComponent() != nullptr) {
+			GetCameraComponent()->~C_Camera();
+			for (size_t i = 0; i < mComponents.size(); i++)
+			{
+				if (mComponents[i]->type == ComponentType::CAMERA)
+				{
+					delete (C_Camera*)mComponents[i];
+				}
+			}
+		}
+		delete GetCameraComponent();
+
+
+	}
+
 }
