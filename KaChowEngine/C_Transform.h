@@ -47,14 +47,27 @@ public:
 	void SetTransformMatrixW(float4x4 matrix);
 
 	void TransformMatrix(float3 _pos, float3 _rot, float3 _scl);
+	void SetGlobalTrans();
 
 	void SetLocalMatrix(float4x4 localMatrix);
 	void setIdentity(mat4x4 mat);
 
+	void SetPos(float3 _pos);
+	void UpdatePos();
+
+	void SetRot(float3 _rot);
+	void UpdateRot();
+
+	void SetScale(float3 _scl);
+	void UpdateScl();
 
 	void SetGPos(float3 _pos);
 	void SetGRot(float3 _rot);
 	void SetGScl(float3 _scl);
+
+	float3 GetPos() { return pos; }
+	float3 GetRot() { return rot; }
+	float3 GetScale() { return scl; }
 
 	float3 GetGPos() { return gpos; }
 	float3 GetGRot() { return grot; }
@@ -77,6 +90,8 @@ public:
 	float4x4 mLocalMatrix;
 
 	mat4x4 matrix;
+	float4x4 rmatrix;
+
 	mat4x4 matrixBeforePhys;
 	std::vector<CollidersRelation*> collidersAffecting;
 

@@ -22,6 +22,7 @@ GameObject::GameObject(GameObject* parent)
 	name = "GameObject";
 	this->mParent = parent;
 
+
 	if (parent != nullptr)
 	{
 		parent->mChildren.push_back(this);

@@ -57,7 +57,7 @@ public:
 	std::vector<GameObject*> mChildren;
 	std::vector<Component*> mComponents;
 
-	C_Transform* mTransform;
+
 
 	bool deleteGameObject;
 	int componentNum;
@@ -67,6 +67,10 @@ public:
 
 	ShapeType type;
 
+	C_Transform* mTransform;
+	//C_Mesh* GOmesh = nullptr;
+	//C_Material* GOmat = nullptr;
+	//C_Camera* GOcam = nullptr;
 	CPhysics* GOphys = nullptr;
 
 };
