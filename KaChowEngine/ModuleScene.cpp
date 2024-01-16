@@ -123,6 +123,35 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
+void ModuleScene::CreateSphere(float force) {
+
+	currentGameSphere = App->scene->CreateGameObject(rootGameObject);
+	currentGameSphere->name = "Game Sphere";
+	
+
+	if (currentGameSphere->GetPhysicsComponent() == nullptr) {
+		CPhysics* compPhys = new CPhysics(currentGameSphere, UUIDGenerator::Generate());
+		currentGameSphere->GOphys = compPhys;
+		currentGameSphere->AddComponent(compPhys);
+		currentGameSphere->GOphys->phys = App->physics;
+	}
+	currentGameSphere->GOphys->shapeSelected = CPhysics::ColliderShape::SPHERE;
+	currentGameSphere->GOphys->isStatic = false;
+	currentGameSphere->GOphys->isShapeSelected[1] = true;
+	currentGameSphere->mTransform->setPosition({ 0, 5, -10 });
+
+	if (currentGameSphere->GOphys->shapeSelected != CPhysics::ColliderShape::NONE)
+	{
+		
+		C_Camera* Cam = currentGameCamera->GetCameraComponent();
+		currentGameSphere->GOphys->colPos = currentGameSphere->mTransform->GetPos();
+		currentGameSphere->GOphys->sphereRadius = 2;
+		currentGameSphere->GOphys->CreateCollider();
+		currentGameSphere->GOphys->CallUpdateShape();
+		currentGameSphere->GOphys->collider->Push(-(Cam->Z.x * force), -(Cam->Z.y * force), -(Cam->Z.z * force));
+	}
+}
+
 void ModuleScene::CreateVehicle()
 {
 	VehicleInfo car;

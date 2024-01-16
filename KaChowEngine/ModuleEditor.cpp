@@ -994,3 +994,4 @@ void ModuleEditor::GetHardwareInfo()
 
     // GPU INFO TOO COMPLICATED
 }
+

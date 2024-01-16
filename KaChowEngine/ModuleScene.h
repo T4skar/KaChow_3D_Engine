@@ -39,6 +39,8 @@ public:
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
 	bool LoadScene();
 
+	void CreateSphere(float force);
+
 	void CreateVehicle();
 	void ControlVehicle();
 
@@ -77,6 +79,7 @@ public:
 	float brake;
 
 	GameObject* currentGameCamera;
+	GameObject* currentGameSphere;
 
 	GameObject* prova1;
 	GameObject* prova2;

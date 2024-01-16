@@ -41,6 +41,8 @@ public:
 
 	void DrawGuizmos();
 
+	void CreateSphere(const char* resName, float force);
+
 	std::vector<float> mFPSLog;
 	std::vector<float> mMsLog;
 

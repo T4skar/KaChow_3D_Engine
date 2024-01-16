@@ -126,7 +126,10 @@ update_status ModulePhysics3D::Update(float dt)
 
 	DrawWorld();
 
-	//aqui hacer que se creen las esferas
+	if ((App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) && App->physics->isWorldOn)
+	{
+		App->scene->CreateSphere(20);
+	}
 
 	return UPDATE_CONTINUE;
 }

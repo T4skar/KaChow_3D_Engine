@@ -70,7 +70,7 @@ public:
 	C_Transform* mTransform;
 	//C_Mesh* GOmesh = nullptr;
 	//C_Material* GOmat = nullptr;
-	//C_Camera* GOcam = nullptr;
+	C_Camera* GOcam = nullptr;
 	CPhysics* GOphys = nullptr;
 
 };
