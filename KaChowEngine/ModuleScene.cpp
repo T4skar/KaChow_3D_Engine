@@ -42,6 +42,16 @@ bool ModuleScene::Start()
 	currentGameCamera->name = "Game Camera";
 	C_Camera* cameraComponent = new C_Camera(UUIDGenerator::Generate());
 	currentGameCamera->AddComponent(cameraComponent);
+	//CPhysics* physicsComponent = new CPhysics(UUIDGenerator::Generate());
+	//currentGameCamera->AddComponent(physicsComponent);
+	//currentGameCamera->GOphys->phys = App->physics;
+	if (currentGameCamera->GetPhysicsComponent() == nullptr) {
+		CPhysics* compPhys = new CPhysics(currentGameCamera, UUIDGenerator::Generate());
+		currentGameCamera->GOphys = compPhys;
+		currentGameCamera->AddComponent(compPhys);
+		currentGameCamera->GOphys->phys = App->physics;
+	}
+
 	currentGameCamera->mTransform->setPosition({ 0, 5, -10 });
 	//currentGameCamera->mTransform->setRotation({ -50, 35, 0 });
 

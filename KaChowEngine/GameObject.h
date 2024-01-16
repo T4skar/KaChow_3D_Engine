@@ -47,6 +47,7 @@ public:
 	C_Mesh* GetMeshComponent();
 	C_Material* GetMaterialComponent();
 	C_Camera* GetCameraComponent();
+	CPhysics* GetPhysicsComponent();
 
 	bool active = true;
 

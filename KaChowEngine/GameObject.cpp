@@ -14,6 +14,7 @@ GameObject::GameObject()
 	componentNum = 0;
 
 	this->uuid = UUIDGenerator::Generate();
+
 }
 
 GameObject::GameObject(GameObject* parent)
@@ -144,6 +145,18 @@ C_Camera* GameObject::GetCameraComponent()
 	return nullptr;
 }
 
+CPhysics* GameObject::GetPhysicsComponent()
+{
+	for (size_t i = 0; i < mComponents.size(); i++)
+	{
+		if (mComponents[i]->type == ComponentType::PHYSICS)
+		{
+			return (CPhysics*)mComponents[i];
+		}
+	}
+	return nullptr;
+}
+
 bool GameObject::IsChildOf(GameObject* gameObject)
 {
 	if (gameObject == this)
@@ -173,7 +186,7 @@ void GameObject::DeleteChild(GameObject* child)
 
 void GameObject::PrintOnInspector()
 {
-	char* compList[]{ "Add Component", "Mesh Component", "Material Component", "Camera Component" };
+	char* compList[]{ "Add Component", "Mesh Component", "Material Component", "Camera Component", "Physics Component"};
 
 	char aux[255] = { ' ' };
 
@@ -244,6 +257,19 @@ void GameObject::PrintOnInspector()
 				}
 				else {
 					LOG("Camera Component already added, can't duplicate.")
+				}
+			}
+			break;
+			case 4:
+			{
+				if (GetPhysicsComponent() == nullptr) {
+					CPhysics* compPhys = new CPhysics(this, UUIDGenerator::Generate());
+					GOphys = compPhys;
+					AddComponent(compPhys);
+					GOphys->phys = App->physics;
+				}
+				else {
+					LOG("Physics Component already added, can't duplicate.")
 				}
 			}
 			break;

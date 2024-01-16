@@ -12,7 +12,46 @@
 #include "GameObject.h"
 #include "Application.h"
 
-CPhysics::CPhysics(GameObject* parent) :Component(parent, uuid)
+CPhysics::CPhysics(std::string uuid) :Component(nullptr, uuid)
+{
+	type = ComponentType::PHYSICS;
+	this->mParent = nullptr;
+
+	phys = nullptr;
+
+	shapeSelected = ColliderShape::NONE;
+
+	isShapeSelected[0] = false;
+	isShapeSelected[1] = false;
+	isShapeSelected[2] = false;
+
+	isShapeCreated[0] = false;
+	isShapeCreated[1] = false;
+	isShapeCreated[2] = false;
+
+	isStatic = false;
+	collider = nullptr;
+	hasInit = false;
+
+	sphereRadius = 1.f;
+	cylRadiusHeight = { 1.f, 1.f };
+
+	glMat4x4 = nullptr;
+	constraintGO = nullptr;
+	p2pConstraint = nullptr;
+	hingeConstraint = nullptr;
+
+	constraitTypeSelected = ConstraintType::NONE;
+
+	isConstraitSelected[0] = false;
+	isConstraitSelected[1] = false;
+
+	isConstraitCreated[0] = false;
+	isConstraitCreated[1] = false;
+
+
+}
+CPhysics::CPhysics(GameObject* parent, std::string uuid) :Component(parent, uuid) 
 {
 	type = ComponentType::PHYSICS;
 	this->mParent = parent;
@@ -36,6 +75,7 @@ CPhysics::CPhysics(GameObject* parent) :Component(parent, uuid)
 	sphereRadius = 1.f;
 	cylRadiusHeight = { 1.f, 1.f };
 
+	glMat4x4 = nullptr;
 	constraintGO = nullptr;
 	p2pConstraint = nullptr;
 	hingeConstraint = nullptr;
@@ -47,7 +87,6 @@ CPhysics::CPhysics(GameObject* parent) :Component(parent, uuid)
 
 	isConstraitCreated[0] = false;
 	isConstraitCreated[1] = false;
-
 }
 
 CPhysics::~CPhysics()
@@ -592,7 +631,7 @@ void CPhysics::RemoveConstraint()
 }
 
 
-void CPhysics::PrintOnInspector()
+void CPhysics::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Physics"))
 	{

@@ -35,7 +35,8 @@ public:
 
 	};
 
-	CPhysics(GameObject* obj);
+	CPhysics(std::string uuid);
+	CPhysics(GameObject* obj, std::string uuid);
 	virtual	~CPhysics();
 
 	void Update() override;
@@ -46,7 +47,7 @@ public:
 
 	bool IsEnable()override { return active; }
 
-	void PrintOnInspector()override;
+	void OnEditor()override;
 
 	void CheckShapes();
 	void CheckConstraints();
@@ -81,7 +82,7 @@ public:
 	float sphereRadius;
 	float2 cylRadiusHeight;
 
-	mat4x4 *glMat4x4;
+	mat4x4* glMat4x4;
 
 	ConstraintType constraitTypeSelected;
 	bool isConstraitSelected[2];

@@ -580,6 +580,7 @@ update_status ModuleEditor::DrawEditor()
                         //playPressed = false;
                         App->LoadConfig();
                         App->scene->LoadSceneRequest();
+                        App->physics->isWorldOn = false;
                     }
                     else {
                         App->SetState(GameState::PLAY);
@@ -587,6 +588,8 @@ update_status ModuleEditor::DrawEditor()
                         ImGui::SetWindowFocus("Game");
                         App->SaveConfig();
                         App->scene->SaveSceneRequest();
+                        App->physics->isWorldOn = true;
+
                     }
                 //}
             }
@@ -601,11 +604,13 @@ update_status ModuleEditor::DrawEditor()
                     
                     if (App->IsRunning()) {
                         App->SetState(GameState::PAUSE);
+                        App->physics->isWorldOn = true;
                        // pausePressed = false;
                     }
                     else
                     {
                        // pausePressed = true;
+                        App->physics->isWorldOn = false;
                     }
                 //}
             }
