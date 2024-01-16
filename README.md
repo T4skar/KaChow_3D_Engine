@@ -1,16 +1,20 @@
-# KaChowEngine
+# KaChow 3D Engine
 
 This project is a 3D Game Engine made by students of CITM for the assigment of Videogame Engine Development of 2023.
 
 It has been made by: Arnau Gonzalez and Pau Argiz
 
 ### Our GitHubs:
-* [Arnau Gonzalez](https://github.com/arinWald)
-* [Pau Argiz](https://github.com/PauM4)
+* [Albert Martin](https://github.com/T4skar)
+* [Adrian Ramirez](https://github.com/AdriRamirez)
 
-[Link](https://github.com/arinWald/KaChowEngine) to our project
+[Link]([https://github.com/arinWald/KaChowEngine](https://github.com/T4skar/KaChow_3D_Engine)) to our project
 
-## How to use KaChow Engine?
+## Fortked from other project: 
+Project GitHub page: ([https://github.com/arinWald/KaChowEngine)](https://github.com/arinWald/KaChowEngine))
+
+
+## How to use KaChow 3D Engine?
 
 ### Download the engine
 
@@ -22,7 +26,7 @@ It has been made by: Arnau Gonzalez and Pau Argiz
 
 ### Camera
 
-The camera in KaChow Engine offers various controls for navigating your 3D scene:
+The camera in KaChow 3D Engine offers various controls for navigating your 3D scene:
 
 - **Right Click:** Enables FPS (First-Person Shooter) free rotation, allowing you to look around in your virtual world with ease.
 - **Mouse Wheel UP/DOWN:** Zooms the camera in and out, adjusting the view of your scene.
@@ -51,6 +55,7 @@ KaChow Engine supports various components to enhance your 3D objects and assets:
 - **Component Mesh:** Provides detailed information about different meshes and their vertices for the selected object.
 - **Component Materials:** Allows you to view and manage textures and materials applied to your GameObjects.
 - **Component Camera:** Edit camera of gameobjects (FOV, Near Distance and Far Distance) and shows number of render objects.
+- **Component Physics:** You can make the gameobjects have gravity, you can put a collider on them and make constrains between them.
 
 ### Drag & Drop
 
