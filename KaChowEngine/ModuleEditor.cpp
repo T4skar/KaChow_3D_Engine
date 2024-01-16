@@ -488,14 +488,14 @@ update_status ModuleEditor::DrawEditor()
             ImGuiIO& io = ImGui::GetIO();
 
             ImGui::SeparatorText("ABOUT THIS ENGINE:");
-            ImGui::Text("KaChow Engine");
+            ImGui::Text("KaChow 3D Engine");
             ImGui::Text("I'm faster than fast. Faster than fast. I'm lightning!");
             ImGui::NewLine();
 
-            ImGui::Text("By Arnau Gonzalez & Pau Argiz");
+            ImGui::Text("By Albert Martin & Adrian Ramirez");
             if (ImGui::Button("Github Repository"))
             {
-                ShellExecute(0, 0, "https://github.com/arinWald/KaChowEngine", 0, 0, SW_SHOW);
+                ShellExecute(0, 0, "https://github.com/T4skar/KaChow_3D_Engine", 0, 0, SW_SHOW);
             }
 
             ImGui::SeparatorText("3rd Party Libraries used");
@@ -547,7 +547,7 @@ update_status ModuleEditor::DrawEditor()
             ImGui::SeparatorText("LICENSE");
             ImGui::BulletText("MIT License");
             ImGui::NewLine();
-            ImGui::Text("Copyright (c) Arnau Gonzalez & Pau Argiz");
+            ImGui::Text("Copyright (c) Albert Martin & Adrian Ramirez");
             ImGui::NewLine();
             ImGui::TextWrapped("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:");
             ImGui::NewLine();
