@@ -82,7 +82,7 @@ public:
 	float sphereRadius;
 	float2 cylRadiusHeight;
 
-	mat4x4* glMat4x4;
+	mat4x4 glMat4x4;
 
 	ConstraintType constraitTypeSelected;
 	bool isConstraitSelected[2];

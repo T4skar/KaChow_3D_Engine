@@ -36,7 +36,6 @@ CPhysics::CPhysics(std::string uuid) :Component(nullptr, uuid)
 	sphereRadius = 1.f;
 	cylRadiusHeight = { 1.f, 1.f };
 
-	glMat4x4 = nullptr;
 	constraintGO = nullptr;
 	p2pConstraint = nullptr;
 	hingeConstraint = nullptr;
@@ -75,7 +74,6 @@ CPhysics::CPhysics(GameObject* parent, std::string uuid) :Component(parent, uuid
 	sphereRadius = 1.f;
 	cylRadiusHeight = { 1.f, 1.f };
 
-	glMat4x4 = nullptr;
 	constraintGO = nullptr;
 	p2pConstraint = nullptr;
 	hingeConstraint = nullptr;
@@ -114,25 +112,25 @@ void CPhysics::Update()
 
 			collider->body->getWorldTransform().getOpenGLMatrix(glMat);
 
-			glMat4x4[0][0] = glMat[0];
-			glMat4x4[0][1] = glMat[1];
-			glMat4x4[0][2] = glMat[2];
-			glMat4x4[0][3] = glMat[3];
+			glMat4x4[0] = glMat[0];
+			glMat4x4[1] = glMat[1];
+			glMat4x4[2] = glMat[2];
+			glMat4x4[3] = glMat[3];
 
-			glMat4x4[1][0] = glMat[4];
-			glMat4x4[1][1] = glMat[5];
-			glMat4x4[1][2] = glMat[6];
-			glMat4x4[1][3] = glMat[7];
+			glMat4x4[4] = glMat[4];
+			glMat4x4[5] = glMat[5];
+			glMat4x4[6] = glMat[6];
+			glMat4x4[7] = glMat[7];
 
-			glMat4x4[2][0] = glMat[8];
-			glMat4x4[2][1] = glMat[9];
-			glMat4x4[2][2] = glMat[10];
-			glMat4x4[2][3] = glMat[11];
+			glMat4x4[8] = glMat[8];
+			glMat4x4[9] = glMat[9];
+			glMat4x4[10] = glMat[10];
+			glMat4x4[11] = glMat[11];
 
-			glMat4x4[3][0] = glMat[12];
-			glMat4x4[3][1] = glMat[13];
-			glMat4x4[3][2] = glMat[14];
-			glMat4x4[3][3] = glMat[15];
+			glMat4x4[12] = glMat[12];
+			glMat4x4[13] = glMat[13];
+			glMat4x4[14] = glMat[14];
+			glMat4x4[15] = glMat[15];
 
 			btQuaternion SCLrot = collider->body->getWorldTransform().getRotation();
 
@@ -178,9 +176,9 @@ void CPhysics::Update()
 			mat4x4 beforePhysWithPos = mParent->mTransform->matrixBeforePhys;
 			for (int i = 0; i < mParent->mTransform->collidersAffecting.size(); i++) {
 				if (mParent->mTransform->collidersAffecting[i]->colliderAffected == collider) {
-					beforePhysWithPos[12] = glMat4x4[12][i];
-					beforePhysWithPos[13] = glMat4x4[13][i];
-					beforePhysWithPos[14] = glMat4x4[14][i];
+					beforePhysWithPos[12] = glMat4x4[12];
+					beforePhysWithPos[13] = glMat4x4[13];
+					beforePhysWithPos[14] = glMat4x4[14];
 					beforePhysWithPos[12] -= mParent->mTransform->collidersAffecting[i]->offsetMatrix[12];
 					beforePhysWithPos[13] -= mParent->mTransform->collidersAffecting[i]->offsetMatrix[13];
 					beforePhysWithPos[14] -= mParent->mTransform->collidersAffecting[i]->offsetMatrix[14];
@@ -190,9 +188,9 @@ void CPhysics::Update()
 
 			for (int i = 0; i < mParent->mTransform->collidersAffecting.size(); i++) {
 				if (mParent->mTransform->collidersAffecting[i]->colliderAffected == collider) {
-					mParent->mTransform->matrix[12] = glMat4x4[12][i];
-					mParent->mTransform->matrix[13] = glMat4x4[13][i];
-					mParent->mTransform->matrix[14] = glMat4x4[14][i];
+					mParent->mTransform->matrix[12] = glMat4x4[12];
+					mParent->mTransform->matrix[13] = glMat4x4[13];
+					mParent->mTransform->matrix[14] = glMat4x4[14];
 
 					mParent->mTransform->matrix[12] -= mParent->mTransform->collidersAffecting[i]->offsetMatrix[12];
 					mParent->mTransform->matrix[13] -= mParent->mTransform->collidersAffecting[i]->offsetMatrix[13];
@@ -206,9 +204,9 @@ void CPhysics::Update()
 
 						if (mParent->mChildren[i]->mTransform->collidersAffecting[j]->colliderAffected == collider) {
 
-							mParent->mChildren[i]->mTransform->matrix[12] = glMat4x4[12][i];
-							mParent->mChildren[i]->mTransform->matrix[13] = glMat4x4[13][i];
-							mParent->mChildren[i]->mTransform->matrix[14] = glMat4x4[14][i];
+							mParent->mChildren[i]->mTransform->matrix[12] = glMat4x4[12];
+							mParent->mChildren[i]->mTransform->matrix[13] = glMat4x4[13];
+							mParent->mChildren[i]->mTransform->matrix[14] = glMat4x4[14];
 
 							mParent->mChildren[i]->mTransform->matrix[12] -= mParent->mChildren[i]->mTransform->collidersAffecting[j]->offsetMatrix[12];
 							mParent->mChildren[i]->mTransform->matrix[13] -= mParent->mChildren[i]->mTransform->collidersAffecting[j]->offsetMatrix[13];
