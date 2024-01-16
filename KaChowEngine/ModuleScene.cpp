@@ -26,7 +26,7 @@ bool ModuleScene::Start()
 
 	rootGameObject = new GameObject(nullptr);
 	rootGameObject->name = "Scene";
-
+	AddGOList(rootGameObject);
 
 	bakerHouse = App->geoLoader->LoadFile("Assets/Models/BakerHouse.fbx");
 	bakerHouse->name = "BakerHouse";
@@ -38,22 +38,36 @@ bool ModuleScene::Start()
 
 
 	// Game camera at start
-	currentGameCamera = new GameObject(rootGameObject);
+	currentGameCamera =App->scene->CreateGameObject(rootGameObject);
 	currentGameCamera->name = "Game Camera";
 	C_Camera* cameraComponent = new C_Camera(UUIDGenerator::Generate());
 	currentGameCamera->AddComponent(cameraComponent);
 	//CPhysics* physicsComponent = new CPhysics(UUIDGenerator::Generate());
 	//currentGameCamera->AddComponent(physicsComponent);
 	//currentGameCamera->GOphys->phys = App->physics;
+
 	if (currentGameCamera->GetPhysicsComponent() == nullptr) {
 		CPhysics* compPhys = new CPhysics(currentGameCamera, UUIDGenerator::Generate());
 		currentGameCamera->GOphys = compPhys;
 		currentGameCamera->AddComponent(compPhys);
 		currentGameCamera->GOphys->phys = App->physics;
 	}
-
+	currentGameCamera->GOphys->shapeSelected = CPhysics::ColliderShape::SPHERE;
+	currentGameCamera->GOphys->isStatic = true;
+	currentGameCamera->GOphys->isShapeSelected[1] = true;
 	currentGameCamera->mTransform->setPosition({ 0, 5, -10 });
-	//currentGameCamera->mTransform->setRotation({ -50, 35, 0 });
+
+	if (currentGameCamera->GOphys->shapeSelected != CPhysics::ColliderShape::NONE) 
+	{
+		currentGameCamera->GOphys->colPos = currentGameCamera->mTransform->GetPos();
+		currentGameCamera->GOphys->sphereRadius = 2;
+		currentGameCamera->GOphys->CreateCollider();
+		currentGameCamera->GOphys->CallUpdateShape();
+	}
+
+
+
+	
 
 	 CreateVehicle();
 
@@ -66,8 +80,10 @@ update_status ModuleScene::Update(float dt)
 {
 	bool ret = UPDATE_CONTINUE;
 
-	rootGameObject->Update();
-
+	for (uint i = 0; i < ListGO.size(); ++i)
+	{
+		ListGO[i]->Update();
+	}
 	//currentGameCamera->mTransform->mPosition += {.1f * App->dtGame, .1f * App->dtGame, .1f * App->dtGame};
 
 	rotation = 1;
@@ -325,7 +341,13 @@ void ModuleScene::SetGameObjectSelected(GameObject* gameObject)
 GameObject* ModuleScene::CreateGameObject(GameObject* parent)
 {
 	GameObject* newGameObject = new GameObject(parent);
+	AddGOList(newGameObject);
 	return newGameObject;
+}
+
+void ModuleScene::AddGOList(GameObject* objlist)
+{
+	ListGO.push_back(objlist);
 }
 
 bool ModuleScene::SaveScene()

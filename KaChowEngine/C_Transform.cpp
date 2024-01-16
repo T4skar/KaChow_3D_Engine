@@ -17,7 +17,7 @@ C_Transform::C_Transform(GameObject* parent, std::string uuid) : Component(paren
 
 	setIdentity(matrix);
 
-	if (mParent->mParent != nullptr)
+	if (mParent != nullptr && mParent->mParent != nullptr)
 	{
 		ppos = mParent->mParent->mTransform->GetPos();
 		prot = mParent->mParent->mTransform->GetRot();

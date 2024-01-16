@@ -65,9 +65,9 @@ public:
 	void SetGRot(float3 _rot);
 	void SetGScl(float3 _scl);
 
-	float3 GetPos() { return pos; }
-	float3 GetRot() { return rot; }
-	float3 GetScale() { return scl; }
+	float3 GetPos() { return mPosition; }
+	float3 GetRot() { return mRotation; }
+	float3 GetScale() { return mScale; }
 
 	float3 GetGPos() { return gpos; }
 	float3 GetGRot() { return grot; }

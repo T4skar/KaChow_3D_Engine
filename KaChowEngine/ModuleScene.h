@@ -42,6 +42,7 @@ public:
 	void CreateVehicle();
 	void ControlVehicle();
 
+	void AddGOList(GameObject* objlist);
 
 	JsonParser jsonFile;
 	JSON_Value* rootFile;
