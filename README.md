@@ -42,6 +42,10 @@ While right-clicking, the following controls are available to navigate the scene
 - **Q:** Move Up
 - **E:** Move Down
 - **F:** Focus on the selected object, centering it in the view.
+- **Up arrow:** Car accelerate
+- **Down arrow:** Car stops
+- **Right arrow:** Car go right
+- **Left arrow:** Car go left
 
 ### Inspector
 
