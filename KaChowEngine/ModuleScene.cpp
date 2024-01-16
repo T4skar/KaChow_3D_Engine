@@ -31,11 +31,82 @@ bool ModuleScene::Start()
 	bakerHouse = App->geoLoader->LoadFile("Assets/Models/BakerHouse.fbx");
 	bakerHouse->name = "BakerHouse";
 
-	street = App->geoLoader->LoadFile("Assets/Models/scene.DAE");
-	street->name = "Street";
+	if (bakerHouse->GetPhysicsComponent() == nullptr) {
+		CPhysics* compPhys = new CPhysics(bakerHouse, UUIDGenerator::Generate());
+		bakerHouse->GOphys = compPhys;
+		bakerHouse->AddComponent(compPhys);
+		bakerHouse->GOphys->phys = App->physics;
+	}
+
+	bakerHouse->GOphys->shapeSelected = CPhysics::ColliderShape::BOX;
+	bakerHouse->GOphys->isStatic = false;
+	bakerHouse->GOphys->isShapeSelected[1] = true;
+	bakerHouse->mTransform->setPosition({ 0, 0, 0 });
+
+	if (bakerHouse->GOphys->shapeSelected != CPhysics::ColliderShape::NONE)
+	{
+		bakerHouse->GOphys->colPos.x = 0.3f;
+		bakerHouse->GOphys->colPos.y = 2;
+		bakerHouse->GOphys->colScl.x = 4;
+		bakerHouse->GOphys->colScl.y = 4;
+		bakerHouse->GOphys->colScl.z = 4;
+		bakerHouse->GOphys->CreateCollider();
+		bakerHouse->GOphys->CallUpdateShape();
+	}
+
+	bakerHouse2 = App->geoLoader->LoadFile("Assets/Models/BakerHouse.fbx");
+	bakerHouse2->name = "BakerHouse";
+
+	if (bakerHouse2->GetPhysicsComponent() == nullptr) {
+		CPhysics* compPhys = new CPhysics(bakerHouse, UUIDGenerator::Generate());
+		bakerHouse2->GOphys = compPhys;
+		bakerHouse2->AddComponent(compPhys);
+		bakerHouse2->GOphys->phys = App->physics;
+	}
+
+	bakerHouse2->GOphys->shapeSelected = CPhysics::ColliderShape::BOX;
+	bakerHouse2->GOphys->isStatic = false;
+	bakerHouse2->GOphys->isShapeSelected[1] = true;
+	bakerHouse2->mTransform->setPosition({ -4, 0, 15 });
+
+	if (bakerHouse2->GOphys->shapeSelected != CPhysics::ColliderShape::NONE)
+	{
+		bakerHouse2->GOphys->colPos.x = -4;
+		bakerHouse2->GOphys->colPos.y = 2;
+		bakerHouse2->GOphys->colPos.z = 15;
+		bakerHouse2->GOphys->colScl.x = 4;
+		bakerHouse2->GOphys->colScl.y = 4;
+		bakerHouse2->GOphys->colScl.z = 4;
+		bakerHouse2->GOphys->CreateCollider();
+		bakerHouse2->GOphys->CallUpdateShape();
+	}
+
+	street = App->geoLoader->LoadFile("Assets/Models/plane.fbx");
+	street->name = "Floor";
 	street->mTransform->mRotation.x = -90;
+	street->mTransform->mScale.x = 50;
+	street->mTransform->mScale.y = 50;
 	street->mTransform->calculateMatrix();
 
+	if (street->GetPhysicsComponent() == nullptr) {
+		CPhysics* compPhys = new CPhysics(street, UUIDGenerator::Generate());
+		street->GOphys = compPhys;
+		street->AddComponent(compPhys);
+		street->GOphys->phys = App->physics;
+	}
+
+	street->GOphys->shapeSelected = CPhysics::ColliderShape::BOX;
+	street->GOphys->isStatic = true;
+	street->GOphys->isShapeSelected[1] = true;
+	street->mTransform->setPosition({ 0, 0, 0 });
+
+	if (street->GOphys->shapeSelected != CPhysics::ColliderShape::NONE)
+	{
+		street->GOphys->colScl.x = 100;
+		street->GOphys->colScl.z = 100;
+		street->GOphys->CreateCollider();
+		street->GOphys->CallUpdateShape();
+	}
 
 	// Game camera at start
 	currentGameCamera =App->scene->CreateGameObject(rootGameObject);
@@ -52,6 +123,7 @@ bool ModuleScene::Start()
 		currentGameCamera->AddComponent(compPhys);
 		currentGameCamera->GOphys->phys = App->physics;
 	}
+
 	currentGameCamera->GOphys->shapeSelected = CPhysics::ColliderShape::SPHERE;
 	currentGameCamera->GOphys->isStatic = true;
 	currentGameCamera->GOphys->isShapeSelected[1] = true;
@@ -78,6 +150,7 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::Update(float dt)
 {
+
 	bool ret = UPDATE_CONTINUE;
 
 	for (uint i = 0; i < ListGO.size(); ++i)
@@ -91,19 +164,14 @@ update_status ModuleScene::Update(float dt)
 
 	if (App->gameState == GameState::PLAY)
 	{
-		if (f > 0.03f) {
-			currentGameCamera->mTransform->mRotation.y += rotation;
-			currentGameCamera->mTransform->calculateMatrix();
-			if (currentGameCamera->mTransform->mRotation.y == 360) {
-				currentGameCamera->mTransform->mRotation.y = 0;
-			}
-			f = 0.0f;
-		}
+		ControlVehicle();
+
 	}
 	else
 	{
 		currentGameCamera->mTransform->mRotation.y = 0;
 		currentGameCamera->mTransform->calculateMatrix();
+		vehicle->Brake(BRAKE_POWER);
 	}
 
 	// Gizmos controls
@@ -123,26 +191,32 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
-void ModuleScene::CreateSphere(float force) {
+void ModuleScene::CreateSphere(float force)
+{
+	// Obtener la posición de la cámara actual
+	float3 cameraPosition = currentGameCamera->mTransform->GetPos();
 
+	// Crear la esfera en la posición de la cámara
 	currentGameSphere = App->scene->CreateGameObject(rootGameObject);
 	currentGameSphere->name = "Game Sphere";
-	
 
-	if (currentGameSphere->GetPhysicsComponent() == nullptr) {
+	if (currentGameSphere->GetPhysicsComponent() == nullptr)
+	{
 		CPhysics* compPhys = new CPhysics(currentGameSphere, UUIDGenerator::Generate());
 		currentGameSphere->GOphys = compPhys;
 		currentGameSphere->AddComponent(compPhys);
 		currentGameSphere->GOphys->phys = App->physics;
 	}
+
 	currentGameSphere->GOphys->shapeSelected = CPhysics::ColliderShape::SPHERE;
 	currentGameSphere->GOphys->isStatic = false;
 	currentGameSphere->GOphys->isShapeSelected[1] = true;
-	currentGameSphere->mTransform->setPosition({ 0, 5, -10 });
+
+	// Establecer la posición de la esfera como la posición de la cámara
+	currentGameSphere->mTransform->setPosition(cameraPosition);
 
 	if (currentGameSphere->GOphys->shapeSelected != CPhysics::ColliderShape::NONE)
 	{
-		
 		C_Camera* Cam = currentGameCamera->GetCameraComponent();
 		currentGameSphere->GOphys->colPos = currentGameSphere->mTransform->GetPos();
 		currentGameSphere->GOphys->sphereRadius = 2;

@@ -24,7 +24,7 @@ public:
 
 	Frustum frustum;
 	float3 reference;
-	float3 Z = {0,0,1};
+	float3 Z = {0,0,-1};
 	int typeCameraSelected ;
 
 	int FOV;

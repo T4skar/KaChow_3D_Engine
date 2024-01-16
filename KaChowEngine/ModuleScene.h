@@ -70,6 +70,7 @@ public:
 	GameObject* draggedGameObject;
 
 	GameObject* bakerHouse;
+	GameObject* bakerHouse2;
 
 	GameObject* street;
 
