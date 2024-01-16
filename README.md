@@ -3,7 +3,7 @@
 This project is a 3D Game Engine made by students of CITM for the assigment of Videogame Engine Development of 2023.
 
 It has been made by: Albert Martin and Adria Ramirez
-<img width="500" height="300" src="https://i.postimg.cc/K84ScpY4/Fallo.jpg">
+
 ### Our GitHubs:
 * [Albert Martin](https://github.com/T4skar)
 * [Adrian Ramirez](https://github.com/AdriRamirez)
