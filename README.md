@@ -154,7 +154,7 @@ The 'Console' provides a central location for important logs and messages, makin
 Now you can visualize the Scene Window and the Game Window. Also, full implementation and functionality of Play, Pause and Stop buttons with a cool camera animation.
 
 ### Video showing the engine
-[[[!]]](https://www.youtube.com/watch?v=esRyybcwZ8I&ab_channel=AlbertMartinLucena)
+(https://www.youtube.com/watch?v=esRyybcwZ8I&ab_channel=AlbertMartinLucena)
 
 
 ### External Libraries
